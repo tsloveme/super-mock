@@ -27,7 +27,7 @@ getFreePort(defaultPort, defaultPort + 20).then(async (port) => {
   }
   SuperMock.install(app);
   app.get('/', function(req, res, next){
-    res.redirect('/devTool');
+    res.redirect('/devTool/');
   })
   app.use(webpackHotMiddleware(compiler))
   app.use(webpackDevMiddleware(compiler,{
