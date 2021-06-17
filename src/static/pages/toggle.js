@@ -60,8 +60,8 @@ setTimeout(function () {
     let isConnect = false
     function connectWebsocket(){
       let isHttps = location.protocol == 'https:';
-      let port = isHttps ? __devVar.wssPort : __devVar.wsPort;
-      let sockjs_url = '//'+ __devVar.host +':'+ port +'/env-ws';
+      let port = isHttps ? __envVar.wssPort : __envVar.wsPort;
+      let sockjs_url = '//'+ __envVar.host +':'+ port +'/env-ws';
       let sockjs = new SockJS(sockjs_url);
       sockjs.onopen = ()=>{
         console.log(`**** devTools wss connect open! ****`);

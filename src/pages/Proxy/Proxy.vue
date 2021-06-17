@@ -1,3 +1,4 @@
+
 <template>
   <div class="proxy">
     <h1>动态代理</h1>
@@ -110,7 +111,7 @@ export default {
       .then(ret=>{
         if (ret.data.code == '0000') {
           this.result.origin = `${window.location.origin}${item.proxyPath}`;
-          this.result.remote = `${JSON.parse(item.proxyConfig).target || window.__devVar.remoteServiceIp}${ret.data.path}`;
+          this.result.remote = `${JSON.parse(item.proxyConfig).target || window.__envVar.remoteServiceIp}${ret.data.path}`;
           this.dialogVisible = true;
         } else {
           showMsg(ret.data.message, 'error');
