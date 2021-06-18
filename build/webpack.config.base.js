@@ -5,14 +5,14 @@ const path = require('path');
 const {resolvePath} = require('./utils');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-let isDev = global._ENV = 'development';
+let isDev = global._ENV == 'development';
 module.exports = {
   entry: {
     main: [ resolvePath('src/main.ts')]
   } ,
   output: {
     // 打包后的文件存放的路径
-    path:  resolvePath('dist'),
+    path:  isDev ? resolvePath('dist') : resolvePath('lib/dist'),
     publicPath: './',
     // 打包后输出文件的文件名
     filename:isDev ? 'js/bundle.js' :'js/[name].[contenthash].js',

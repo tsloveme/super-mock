@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node ./build/devServer.js",
+    "build": "node --trace-deprecation ./build/build.js",
     "test": "test"
   },
   "repository": {
@@ -12,6 +13,7 @@
     "url": "git+https://github.com/tsloveme/supper-mock.git"
   },
   "keywords": [
+    "supper-mock",
     "mock",
     "mockjs",
     "mock-middleware",
@@ -41,6 +43,7 @@
     "axios": "^0.21.1",
     "babel-loader": "^8.2.2",
     "babel-plugin-component": "^1.1.1",
+    "clean-webpack-plugin": "^4.0.0-alpha.0",
     "copy-webpack-plugin": "^9.0.0",
     "css-loader": "^5.2.6",
     "element-plus": "^1.0.2-beta.48",
@@ -50,6 +53,7 @@
     "style-loader": "^2.0.0",
     "ts-loader": "^9.2.3",
     "typescript": "^4.3.2",
+    "uglifyjs-webpack-plugin": "^2.2.0",
     "url-loader": "^4.1.1",
     "vue": "^3.1.1",
     "vue-loader": "^16.2.0",

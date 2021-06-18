@@ -1,34 +1,25 @@
-const merge = require('webpack-merge')
+const {merge} = require('webpack-merge')
 const webpack = require('webpack')
 const baseConfig = require('./webpack.config.base')
-const gConfig = require('../config');
 const MiniCssExtractPlugin  = require('mini-css-extract-plugin')
 const utils = require('./utils');
-const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+// const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+// const CopyWebpackPlugin = require('copy-webpack-plugin');
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 
 const webpackConfig = merge(baseConfig, {
   mode: 'production',
-  module: {
-    rules: [
-      // {
-      //   test: /\.css?$/,
-      //   use: [
-      //     MiniCssExtractPlugin.loader, 
-      //     'css-loader'
-      //   ]
-      // }
-    ]
-  },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: utils.assetsPath('css/main-[contentHash].css')
+      filename: 'css/[name]-[contenthash].css'
     }),
     // 清空构建目录内容
-    new (require('clean-webpack-plugin'))(['dist'], {root:utils.resolve('./')}),
-    
-    new webpack.DefinePlugin({'process.env.NODE_ENV': '"production"', NODE_ENV: '"production"'})
+    new CleanWebpackPlugin(),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': '"production"',
+      NODE_ENV: '"production"'
+    })
   ],
   
   // 压缩、优化
@@ -41,7 +32,7 @@ const webpackConfig = merge(baseConfig, {
         sourceMap: true
       }),
       // https://github.com/NMFR/optimize-css-assets-webpack-plugin
-      new OptimizeCSSAssetsPlugin({})
+      // new OptimizeCSSAssetsPlugin({})
     ],
     runtimeChunk: {
       "name": "manifest"
@@ -62,15 +53,4 @@ const webpackConfig = merge(baseConfig, {
     hints: false
   }
 })
-
-// 打包 Ueditor
-if(gConfig.enableEditor) {
-  webpackConfig.plugins.push(new CopyWebpackPlugin([
-    { from: './src/components/neditor/', to: 'neditor/', force:true},
-  ]))
-}
-// 代码调试
-if(gConfig.devtool) {
-  webpackConfig.devtool = gConfig.devtool;
-}
 module.exports = webpackConfig;
