@@ -1,7 +1,7 @@
 
 <template>
   <div class="proxy">
-    <h1>动态代理</h1>
+    <h1>服务代理</h1>
     <div class="proxy-module" v-for="(item, index) in proxyList" :key="index">
       <el-form :ref="'form'+index" :model="item" label-width="80px">
         <el-form-item label="代理路径">
@@ -25,7 +25,7 @@
       </el-form>
     </div>
     <div style="text-align: center;">
-      <el-button @click="addProxy" type="primary" icon="el-icon-plus">新增动态代理</el-button>
+      <el-button @click="addProxy" type="primary" icon="el-icon-plus">新增代理</el-button>
     </div>
     <el-dialog
       title="提示"
@@ -103,7 +103,7 @@ export default {
     enableEdit(item, index){
       this.proxyList[index] = {...item, canEdit: true};
     },
-    // 尝试动态代理
+    // 尝试代理
     tryProxy(item, index){
       this.checkConfig(item)
       .then(()=>{
@@ -121,7 +121,7 @@ export default {
         }
       })
     },
-    // 新增动态代理
+    // 新增代理
     addProxy(){
       this.proxyList.push({
         proxyPath: '/services/serverA',
