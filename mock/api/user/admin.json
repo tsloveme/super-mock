@@ -1,0 +1,9 @@
+{
+  "success": true,
+  "code": "0000",
+  "data" : {
+    "name": "chentangsong",
+    "job": "front end",
+    "hobies": "coding, beer, meat"
+  }
+}
