@@ -11,9 +11,6 @@ const { getFreePort, getIPAddress } = require('./utils');
 const IPAddress = getIPAddress();
 config.entry.main.unshift ('webpack-hot-middleware/client');
 const SuperMock = require('../lib');
-app.use('/api', (req,res,next)=>{
-  res.send(req.path);
-})
 // app.use(SuperMock)
 const compiler = webpack(config);
 getFreePort(defaultPort, defaultPort + 20).then(async (port) => {

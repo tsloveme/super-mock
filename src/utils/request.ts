@@ -9,13 +9,13 @@
  * HISTORY:
  */
 
-import Vue from 'vue';
+import {createApp} from 'vue';
 import Axios from 'axios';
-import { MessageBox } from 'element-plus';
+import { ElMessageBox } from 'element-plus';
 /**
  * 给url加参数(get传参数) option 为Object类型
  */
-const addQs2Url = (url, option)=> {
+const addQs2Url = (url:string, option:any={})=> {
 	if(!option) return url;
 	if(!/\?\w/.test(url)) url+='?';
 	var arr = [];
@@ -28,20 +28,29 @@ const addQs2Url = (url, option)=> {
 //创建一个单例的全局loading供request模块使用
 let mountEl = document.createElement('div');
 mountEl.setAttribute('id','globalLoading');
+document.appendChild(mountEl);
 let loadingData = {loading:0};
 let loadingInstance;
 setTimeout(() => {
-	loadingInstance = new Vue({
+	loadingInstance = createApp({
 		el:mountEl,
-		data:loadingData,
 		template:`<div v-loading.fullscreen.lock="loading" 
 			element-loading-background="rgba(255,255,255,0.35)" 
 			element-loading-text="处理中..." ></div>`
 	});
-	document.body.appendChild(loadingInstance.$el);
+	loadingInstance.mount(mountEl);
 }, 0);
 
 
+interface RequestOption {
+	url:string,
+	method: string,
+	data: any,
+	timeout: number,
+	loading: boolean,
+	autoHandleErr: boolean,
+	judgeSuccess: any,
+}
 /**
  * 请求模块
  * 参数项
@@ -52,15 +61,15 @@ setTimeout(() => {
  *  @param loading [Boolean] 默认加载全局loading,
 */
 
-const Request = (option={}) => {
+const Request = (option:RequestOption) => {
 	let {
 		url,
-		method='POST',                  // 请求方法
+		method='post',                  // 请求方法
 		data={},                        // 发送的数据
 		timeout = 30000,                // 默认30秒过期
 		loading = true,                 // 默认加载全局loading
 		autoHandleErr = true,           // 自动处理错误
-		judgeSuccess = {success: true}  // 判断请求是否成功的标示（非网络错误的情况）
+		judgeSuccess:any = {success: true}  // 判断请求是否成功的标示（非网络错误的情况）
 	} = option;
 	if (!url) {
 		return Promise.reject({message: 'url is required!'});
@@ -70,7 +79,7 @@ const Request = (option={}) => {
 	if(method.toLowerCase() == 'get'){
 		url = addQs2Url(url,data);
 	}
-	let axiosOption = {url, method, timeout, data};
+	let axiosOption:any = {url, method, timeout, data};
 	let axiosResult = new Promise(function(resolve, reject){
 		Axios.request(axiosOption)
 			.then(function(res){
@@ -93,7 +102,7 @@ const Request = (option={}) => {
 			}
 			if (autoHandleErr) {
 				let message = error.message || error.toString();
-				MessageBox({title:"请求出错！",message, type:"error"});
+				ElMessageBox({title:"请求出错！",message, type:"error"});
 			}
 			reject('请求出错')
 		})

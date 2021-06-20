@@ -29,20 +29,23 @@
     </div>
     <el-dialog
       title="提示"
-      :visible.sync="dialogVisible"
+      v-model="dialogVisible"
       width="80%">
       <div>
         <p>{{result.origin}}</p>
         <p>代理到了</p>
         <p>{{result.remote}}</p>
       </div>
-      <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
-      </span>
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+        </span>
+      </template>
     </el-dialog>
   </div>
 </template>
 <script>
+import axios from 'axios';
 export default {
   data(){
     return {
@@ -58,8 +61,8 @@ export default {
   created: function(){
     axios.get('/devTools/api/env-proxy-list')
       .then(ret=>{
-        data.proxyList = ret.data.data;
-        data.proxyList.forEach(item=>{
+        this.proxyList = ret.data.data;
+        this.proxyList.forEach(item=>{
           item.proxyConfig  = JSON.stringify(item.proxyConfig, null, 2);
           item.canEdit = false;
         });
@@ -76,11 +79,11 @@ export default {
       })
       .then(ret=>{
         if (ret.data.code == '0000') {
-          showMsg(ret.data.message);
-          this.$set(this.proxyList, index, {...item, canEdit: false});
+          this.showMsg(ret.data.message);
+          this.proxyList[index] = {...item, canEdit: false};
           this.bakupData();
         } else {
-          showMsg(ret.data.message, 'error');
+          this.showMsg(ret.data.message, 'error');
         }
       })
     },
@@ -89,16 +92,16 @@ export default {
         JSON.parse(item.proxyConfig);
         return Promise.resolve();
       } catch(e) {
-        showMsg('配置为正规的JSON格式，请先校验正确性！', 'error', 2000);
+        this.showMsg('配置为正规的JSON格式，请先校验正确性！', 'error');
         return Promise.reject();
       }
     },
     onCancel(item, index){
       let backItem = JSON.parse(JSON.stringify(this.backup[index]));
-      this.$set(this.proxyList, index, backItem);
+      this.proxyList[index] = backItem;
     },
     enableEdit(item, index){
-      this.$set(this.proxyList, index, {...item, canEdit: true});
+      this.proxyList[index] = {...item, canEdit: true};
     },
     // 尝试动态代理
     tryProxy(item, index){
@@ -114,17 +117,16 @@ export default {
           this.result.remote = `${JSON.parse(item.proxyConfig).target || window.__envVar.remoteServiceIp}${ret.data.path}`;
           this.dialogVisible = true;
         } else {
-          showMsg(ret.data.message, 'error');
+          this.showMsg(ret.data.message, 'error');
         }
       })
     },
     // 新增动态代理
     addProxy(){
       this.proxyList.push({
-        proxyPath: '/api/aaaa/bbbb/',
+        proxyPath: '/services/serverA',
         proxyConfig: JSON.stringify({
           target: "http://10.118.120.224:8080",
-          headers: {user_id: '45545422'},
           pathRewrite: {
             "^/": "/"
           }
@@ -142,17 +144,20 @@ export default {
       })
       .then(ret=>{
         if (ret.data.code == '0000') {
-          showMsg(ret.data.message);
-          this.$set(this.proxyList, index, {...item, canEdit: false, id: ret.data.data.id});
+          this.showMsg(ret.data.message);
+          this.proxyList[index] = {...item, canEdit: false, id: ret.data.data.id};
           this.bakupData();
         } else {
-          showMsg(ret.data.message, 'error');
+          this.showMsg(ret.data.message, 'error');
         }
       })
     },
     //备 份用于重置
     bakupData(){
-      data.backup = JSON.parse(JSON.stringify(data.proxyList));
+      this.backup = JSON.parse(JSON.stringify(this.proxyList));
+    },
+    showMsg(str, type){
+      this.$message({type: type || 'success', message: str, duration: 3000})
     }
   }
 }

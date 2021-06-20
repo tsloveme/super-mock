@@ -24,6 +24,7 @@
 </template>
 <script>
 import axios from 'axios';
+// import api from '@/api/api';
 export default {
   data(){
     return {
@@ -41,6 +42,7 @@ export default {
       this.$router.push('/proxy');
     },
     getSystemsInfo(){
+      // api.envSystemInfo()
       axios.get('/devTools/api/env-system-info')
       .then(ret=>{
         let returnData = ret.data.data;
@@ -61,7 +63,7 @@ export default {
       })
     },
     showMsg(str){
-      this.$message({type: 'success', message: str, duration: 1000})
+      this.$message({type: 'success', message: str, duration: 3000})
     }
   }
 }
