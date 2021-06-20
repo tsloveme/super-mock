@@ -25,9 +25,9 @@ module.exports = function (app) {
 ## mock开关用法
 访问工程 /devTools/ 页面
 关闭mock, 所有mock数据失效，/api/user/userList 去工程配置的代理查找匹配的规则。有代理到的话就代理到远程服务数据。没有的话就404
-![](./images/sample-home.png)
+![](https://raw.githubusercontent.com/tsloveme/super-mock/master/images/sample-home.png)
 
 ## 代理配置
 /devTools/#/proxy
 页面可以配置代理，尝试代理规则，启用、禁用代理规则。提交的更改实时生效。无需重启webpack工程
-![](./images/sample-proxy.png)
+![](https://raw.githubusercontent.com/tsloveme/super-mock/master/images/sample-proxy.png)
