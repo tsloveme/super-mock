@@ -5,7 +5,7 @@
     npm install supper-mock --save-dev
 在create-react-app 的工程中新建 src/setupProxy.js文件
 ```js
-const SuperMock = require('super-mock');
+const SuperMock = require('super-mock-middleware);
 
 module.exports = function (app) {
   SuperMock.install(app);

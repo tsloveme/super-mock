@@ -1,17 +1,7 @@
-// const { proxy } = require('http-proxy-middleware')
-// 或
-const path = require('path');
-const proxy = require('http-proxy-middleware');
-const SupperMock = require('../../../lib');
+
+// const SupperMock = require('../../../lib'); // my local project test
+const SupperMock = require('super-mock-middleware');
 
 module.exports = function (app) {
   SupperMock.install(app);
-  app.use(proxy('/api', {
-    target: 'http://127.0.0.1:3600',
-    secure: false,
-    changeOrigin: true,
-    pathRewrite: {
-      "^/": "/"
-    }
-  }))
 }
