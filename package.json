@@ -2,7 +2,7 @@
   "name": "super-mock-middleware",
   "version": "0.0.1",
   "description": "an express mock data middleware",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
     "start": "node ./build/devServer.js",
     "build": "node --trace-deprecation ./build/build.js",

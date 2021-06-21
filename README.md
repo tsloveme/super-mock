@@ -1,9 +1,9 @@
-# super-mock
-一个基于express 的mock数据中间件，模拟真实ajax请求，支持json文件、js模块
+# super-mock-middleware
+a mock middle ware base on express.js  mock the real ajax request, support the json, js;
 
-## 用法
-    npm install supper-mock --save-dev
-在create-react-app 的工程中新建 src/setupProxy.js文件
+## Useage
+    npm install super-mock-middleware --save-dev
+for example, in react project(created by create-react-app) new file: "src/setupProxy.js" import the middleware, install it;
 ```js
 const SuperMock = require('super-mock-middleware);
 
@@ -11,23 +11,23 @@ module.exports = function (app) {
   SuperMock.install(app);
 }
 ```
-### mock目录，mock文件规则
-工程根目录新建mock目录
-接口：/api/user/userList 匹配的mock文件优先级如下从高到低如下：
+### Mock Path & Mock Rules
+it will search the /mock directory of the project, and match the json and js files;
+sample：/api/user/userList (file to match from high priority to low as following order)：
 1. /mock/api/user/userList.js
 2. /mock/api/user/userList.json
 3. /mock/user/userList.js
 4. /mock/user/userList.json
 5. /mock/userList.js
 6. /mock/userList.json
-    mock数据文件都是实时生效的。修改即生效，无需重启工程。
+    the middleware disable require.cache for the mock file, it works as you modify it。and you don't need to restart the project;
 
-## mock开关用法
-访问工程 /devTools/ 页面
-关闭mock, 所有mock数据失效，/api/user/userList 去工程配置的代理查找匹配的规则。有代理到的话就代理到远程服务数据。没有的话就404
+## Mock Toggle
+visit the page: /devTools/
+turn off the mock, all the requests go to the remote server or handle by other middleware.
 ![](https://raw.githubusercontent.com/tsloveme/super-mock/master/images/sample-home.png)
 
-## 代理配置
-/devTools/#/proxy
-页面可以配置代理，尝试代理规则，启用、禁用代理规则。提交的更改实时生效。无需重启webpack工程
+## configure the proxy
+visit the page: /devTools/#/proxy
+you can try it out before adding a proxy route or modifing a proxy rule; enable/disable a proxy rule, it works as you commit, do not need to restart you project.
 ![](https://raw.githubusercontent.com/tsloveme/super-mock/master/images/sample-proxy.png)
