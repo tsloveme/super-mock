@@ -1,6 +1,6 @@
 {
   "name": "super-mock-middleware",
-  "version": "0.0.2-beta2",
+  "version": "0.0.2-beta3",
   "description": "an express mock data middleware",
   "main": "lib/index.js",
   "scripts": {
@@ -10,10 +10,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tsloveme/supper-mock.git"
+    "url": "git+https://github.com/tsloveme/super-mock.git"
   },
   "keywords": [
-    "supper-mock",
+    "super-mock",
     "mock",
     "mockjs",
     "mock-middleware",
