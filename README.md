@@ -68,6 +68,8 @@ module.exports = function(req, res, next){
 }
 ```
 
+**[Sample](https://github.com/tsloveme/super-mock/tree/master/mock/api/user)**
+
 
 ## Toggle The Mock Data
 visit the page: /devTools/
