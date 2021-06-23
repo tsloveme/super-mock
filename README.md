@@ -74,9 +74,12 @@ module.exports = function(req, res, next){
 ## Toggle The Mock Data
 visit the page: /devTools/
 turn off/on the mock, when the toggle on, all then requests go to the middleware, when it match a file, it will response and return. otherwire, it go ahead to next middleware.
-![](https://raw.githubusercontent.com/tsloveme/super-mock/master/images/sample-home.png)
+![](https://raw.githubusercontent.com/tsloveme/super-mock/master/images/sample-home1.png)
 
 ## Configure The Proxy
 visit the page: /devTools/#/proxy
 you can try it out before adding a proxy route or modifing a proxy rule; enable/disable a proxy rule, it works as you commit, do not need to restart you project.
-![](https://raw.githubusercontent.com/tsloveme/super-mock/master/images/sample-proxy.png)
+![](https://raw.githubusercontent.com/tsloveme/super-mock/master/images/sample-proxy1.png)
+
+
+![](https://raw.githubusercontent.com/tsloveme/super-mock/master/images/sample-proxy2.png)
