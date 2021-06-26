@@ -13,7 +13,7 @@ module.exports = {
   output: {
     // 打包后的文件存放的路径
     path:  isDev ? resolvePath('dist') : resolvePath('lib/dist'),
-    publicPath: './',
+    publicPath: isDev? './': '/devTools/',
     // 打包后输出文件的文件名
     filename:isDev ? 'js/bundle.js' :'js/[name].[contenthash].js',
     chunkFilename: isDev ? 'js/[name].[hash].js' :'js/[name].[contenthash].js',
@@ -83,6 +83,10 @@ module.exports = {
         }
       }, {
         test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+        include:[
+          resolvePath('src'),
+          resolvePath('node_modules/element-plus')
+        ],
         use: {
           loader: 'url-loader',
           options: {
@@ -93,6 +97,10 @@ module.exports = {
       },
       {
         test: /\.css$/,
+        include:[
+          resolvePath('src'),
+          resolvePath('node_modules/element-plus')
+        ],
         use: (function(){
           let loaders = ['css-loader'];
           if (!isDev) {
@@ -103,7 +111,7 @@ module.exports = {
           return loaders;
         })()
       },
-       {
+      {
         test: /\.scss$/,
         use: [
           'style-loader',
