@@ -1,15 +1,15 @@
 <template>
   <div class="home">
     <div class="module">
-      <label>mock数据:</label>
+      <label>{{$t('message.home_mock')}}:</label>
       <div class="cont">
         <el-switch v-model="enableMock" @change="toggleMock"></el-switch>
       </div>
     </div>
     <div class="module">
-      <label>动态代理:</label>
+      <label>{{$t('message.home_proxy')}}:</label>
       <div class="cont">
-        <a href="javascript:;" @click="goToProxy">查看配置</a>
+        <a href="javascript:;" @click="goToProxy">{{$t('message.home_proxy_go')}}</a>
       </div>
     </div>
   </div>

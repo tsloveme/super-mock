@@ -1,44 +1,44 @@
 
 <template>
   <div class="proxy">
-    <h1>服务代理</h1>
+    <h1>{{$t('message.proxy_setting')}}</h1>
     <div class="proxy-module" v-for="(item, index) in proxyList" :key="index">
-      <el-form :ref="'form'+index" :model="item" label-width="80px">
-        <el-form-item label="代理路径">
+      <el-form :ref="'form'+index" :model="item" label-width="120px">
+        <el-form-item :label="$t('message.proxy_path')">
           <el-input v-model="item.proxyPath" :disabled="!item.canEdit"></el-input>
         </el-form-item>
-        <el-form-item label="启用状态">
+        <el-form-item :label="$t('message.proxy_enable')">
           <el-switch v-model="item.active" :disabled="!item.canEdit"></el-switch>
         </el-form-item>
-        <el-form-item label="代理配置">
+        <el-form-item :label="$t('message.proxy_conf')">
           <el-input type="textarea" autosize v-model="item.proxyConfig" :disabled="!item.canEdit"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="tryProxy(item, index)">尝试</el-button>
-          <el-button v-if="!item.canEdit && item.id" type="primary" @click="enableEdit(item, index)">修改</el-button>
+          <el-button type="primary" @click="tryProxy(item, index)">{{$t('message.proxy_btn_try')}}</el-button>
+          <el-button v-if="!item.canEdit && item.id" type="primary" @click="enableEdit(item, index)">{{$t('message.proxy_btn_modify')}}</el-button>
           <template v-else>
-            <el-button v-if="item.id" type="primary" @click="doModify(item, index)">提交修改</el-button>
-            <el-button v-else type="primary" @click="doAddProxy(item, index)">确认新增</el-button>
-            <el-button @click="onCancel(item,index)">取消</el-button>
+            <el-button v-if="item.id" type="primary" @click="doModify(item, index)">{{$t('message.proxy_btn_commit_modify')}}</el-button>
+            <el-button v-else type="primary" @click="doAddProxy(item, index)">{{$t('message.proxy_btn_confirm_add')}}</el-button>
+            <el-button @click="onCancel(item,index)">{{$t('message.proxy_btn_cancel')}}</el-button>
           </template>
         </el-form-item>
       </el-form>
     </div>
     <div style="text-align: center;">
-      <el-button @click="addProxy" type="primary" icon="el-icon-plus">新增代理</el-button>
+      <el-button @click="addProxy" type="primary" icon="el-icon-plus">{{$t('message.proxy_btn_add')}}</el-button>
     </div>
     <el-dialog
-      title="提示"
+      :title="$t('common.remind')"
       v-model="dialogVisible"
       width="80%">
       <div>
         <p>{{result.origin}}</p>
-        <p>代理到了</p>
+        <p>>{{$t('message.proxy_result_to')}}</p>
         <p>{{result.remote}}</p>
       </div>
       <template #footer>
         <span class="dialog-footer">
-          <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+          <el-button type="primary" @click="dialogVisible = false">{{$t('common.confirm')}}</el-button>
         </span>
       </template>
     </el-dialog>
@@ -59,6 +59,7 @@ export default {
     }
   },
   created: function(){
+    console.log(this);
     axios.get('/devTools/api/env-proxy-list')
       .then(ret=>{
         this.proxyList = ret.data.data;
@@ -92,7 +93,7 @@ export default {
         JSON.parse(item.proxyConfig);
         return Promise.resolve();
       } catch(e) {
-        this.showMsg('配置为正规的JSON格式，请先校验正确性！', 'error');
+        this.showMsg(this.$t('message.proxy_conf_format'), 'error');
         return Promise.reject();
       }
     },
