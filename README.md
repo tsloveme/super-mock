@@ -1,9 +1,14 @@
+English | [简体中文](./README-zh-CN.md) 
 # super-mock-middleware
-a mock middle ware base on express.js  mock the real ajax request, support the json, js;
+a mock middle ware base on express.js  mock the real ajax request, support the json, js; and more easy to configure the proxy of your project
 
 ## Useage
     npm install super-mock-middleware --save-dev
-for example, in react project(created by create-react-app) new file: "src/setupProxy.js" import the middleware, install it;
+### 1. in react project
+```bash
+create-react-app react-demo
+```
+new file: "react-demo/src/setupProxy.js" 
 ```js
 const SuperMock = require('super-mock-middleware);
 
@@ -11,17 +16,42 @@ module.exports = function (app) {
   SuperMock.install(app);
 }
 ```
-## Mock Path & Mock Rules
-it will search the /mock directory of the project, and match the json and js files;
-sample：/api/user/userList (file to match from high priority to low as following order)：
-1. /mock/api/user/userList.js
-2. /mock/api/user/userList.json
-3. /mock/user/userList.js
-4. /mock/user/userList.json
-5. /mock/userList.js
-6. /mock/userList.json
+### 2. in express project
+```javascript
+const express = require('express');
+const SuperMock = require('super-mock-middleware);
+const app = express();
+SuperMock.install(app);
+// other middlewares
+// ...
+app.listen(3000);
+```
+### 3. in webpack-dev-server
+webpack.config.js
+```javascript
+const SuperMock = require('super-mock-middleware);
+module.exports = {
+  //...
+  devServer: {
+    before: function (app) {
+      SuperMock.install(app);
+    },
+  },
+};
+```
 
-    the middleware disable require.cache for the mock file, it works as you modify it。and you don't need to restart the project;
+## Mock Rules
+mock data path is /mock in project root
+it will search the directory and try match the js file and json file;
+for example: **/api/user/userList**
+try to match file as following rule(Depth-First-Search):
+>/mock/api/user/userList.(js|json)
+>/mock/\*\*/user/userList.(js|json)
+>/mock/\*\*/userList.(js|json)
+>/mock/userList.(js|json)
+
+
+    the middleware delete the require cache of the path: /mock, so it works as you modify it。and you don't need to restart the project;
 ## Mock file
 
 #### 1. a json file
@@ -37,7 +67,7 @@ sample：/api/user/userList (file to match from high priority to low as followin
 }
 ```
 
-#### 2. a javascript modules
+#### 2. a javascript module
 ```javascript
 // this is a module to respone the request
 module.exports = {
