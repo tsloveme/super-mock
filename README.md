@@ -45,13 +45,13 @@ mock data path is /mock in project root
 it will search the directory and try match the js file and json file;
 for example: **/api/user/userList**
 try to match file as following rule(Depth-First-Search):
->/mock/api/user/userList.(js|json)
->/mock/\*\*/user/userList.(js|json)
->/mock/\*\*/userList.(js|json)
->/mock/userList.(js|json)
+- /mock/api/user/userList.(js|json)
+- /mock/\*\*/user/userList.(js|json)
+- /mock/\*\*/userList.(js|json)
+- /mock/userList.(js|json)
 
 
-    the middleware delete the require cache of the path: /mock, so it works as you modify it。and you don't need to restart the project;
+the middleware delete the require cache of the path: /mock, so it works as you modify it。and you don't need to restart the project;
 ## Mock file
 
 #### 1. a json file
