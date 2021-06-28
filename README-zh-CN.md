@@ -44,10 +44,10 @@ mock数据的默认目录是在工程跟路径下的： /mock
 此中间件尝试在mock目录中匹配js文件和json文件;
 例如: **/api/user/userList**
 将尝试如下的匹配规则，匹配到直接响应mock数据(目录深度优先匹配):
->/mock/api/user/userList.(js|json)
->/mock/\*\*/user/userList.(js|json)
->/mock/\*\*/userList.(js|json)
->/mock/userList.(js|json)
+- /mock/api/user/userList.(js|json)
+- /mock/\*\*/user/userList.(js|json)
+- /mock/\*\*/userList.(js|json)
+- /mock/userList.(js|json)
 
 匹配不到，则请求会跳过此中间件，进入下一个中间件
 

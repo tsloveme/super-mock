@@ -1,4 +1,4 @@
-English | [简体中文](./README-zh-CN.md) 
+English | [简体中文](https://github.com/tsloveme/super-mock/blob/master/README-zh-CN.md) 
 # super-mock-middleware
 a mock middle ware base on express.js  mock the real ajax request, support the json, js; and more easy to configure the proxy of your project
 
