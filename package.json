@@ -6,6 +6,8 @@
   "scripts": {
     "start": "node ./build/devServer.js",
     "build": "node --trace-deprecation ./build/build.js",
+    "dev:client": "node --trace-deprecation ./build/buildClient.js development",
+    "build:client": "node --trace-deprecation ./build/build.js",
     "test": "test"
   },
   "repository": {
