@@ -20,7 +20,7 @@ getFreePort(defaultPort, defaultPort + 20).then(async (port) => {
     console.log(`the port: ${defaultPort} is in used!!!`);
     console.log(`use port: ${port} instead!!!`);
     console.log('****************************');
-    await new Promise(resolove=>setTimeout(resolve, 3000));
+    await new Promise(resolve=>setTimeout(resolve, 3000));
   }
   SuperMock.install(app);
   app.get('/', function(req, res, next){
